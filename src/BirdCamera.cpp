@@ -25,8 +25,8 @@
 #include "esp_http_server.h"
 
 //Replace with your network credentials
-const char* ssid = "extender";
-const char* password = "svensson";
+const char* ssid = "myssid";
+const char* password = "mypassword";
 
 #define PART_BOUNDARY "123456789000000000000987654321"
 
