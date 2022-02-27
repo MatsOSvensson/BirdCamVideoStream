@@ -186,7 +186,8 @@ void startCameraServer(){
   httpd_config_t config = HTTPD_DEFAULT_CONFIG();
   config.server_port = 80;
 
-  httpd_uri_t index_uri = {
+  httpd_uri_t index_uri = 
+  {
     .uri       = "/",
     .method    = HTTP_GET,
     .handler   = stream_handler,
@@ -194,12 +195,15 @@ void startCameraServer(){
   };
   
   //Serial.printf("Starting web server on port: '%d'\n", config.server_port);
-  if (httpd_start(&stream_httpd, &config) == ESP_OK) {
+  if (httpd_start(&stream_httpd, &config) == ESP_OK) 
+  {
     httpd_register_uri_handler(stream_httpd, &index_uri);
   }
+
 }
 
-void setup() {
+void setup() 
+{
   WRITE_PERI_REG(RTC_CNTL_BROWN_OUT_REG, 0); //disable brownout detector
  
   Serial.begin(115200);
@@ -227,11 +231,13 @@ void setup() {
   config.xclk_freq_hz = 20000000;
   config.pixel_format = PIXFORMAT_JPEG; 
   
-  if(psramFound()){
+  if(psramFound())
+  {
     config.frame_size = FRAMESIZE_UXGA;
     config.jpeg_quality = 10;
     config.fb_count = 2;
-  } else {
+  } else 
+  {
     config.frame_size = FRAMESIZE_SVGA;
     config.jpeg_quality = 12;
     config.fb_count = 1;
@@ -239,16 +245,22 @@ void setup() {
   
   // Camera init
   esp_err_t err = esp_camera_init(&config);
-  if (err != ESP_OK) {
+
+  if (err != ESP_OK) 
+  {
     Serial.printf("Camera init failed with error 0x%x", err);
     return;
   }
+  
   // Wi-Fi connection
   WiFi.begin(ssid, password);
-  while (WiFi.status() != WL_CONNECTED) {
+  
+  while (WiFi.status() != WL_CONNECTED) 
+  {
     delay(500);
     Serial.print(".");
   }
+
   Serial.println("");
   Serial.println("WiFi connected");
   
@@ -259,6 +271,7 @@ void setup() {
   startCameraServer();
 }
 
-void loop() {
+void loop() 
+{
   delay(1);
 }
